@@ -1,9 +1,10 @@
 package com.example.pizzasio.data.model
 
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
-
 data class Pizza(
-    @StringRes val namePizza: Int,
-    @DrawableRes val imagePizza: Int
+    val name: String,
+    val price: String,
+    val image: String,
+    val id: String,
+    val idPate: String,
+    val idBase: String
 )
