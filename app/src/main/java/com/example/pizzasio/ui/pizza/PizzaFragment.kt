@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -70,7 +71,10 @@ import com.example.pizzasio.ui.theme.PizzaTheme
 import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
 import com.example.pizzasio.R
+import com.example.pizzasio.ui.panier.PanierViewModel
 
+
+val panierViewModel = PanierViewModel()
 class PizzaFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
@@ -311,7 +315,8 @@ class PizzaFragment : Fragment() {
             SizeModal(
                 onDismissRequest = { showSizeModal = false },
                 sizes = listOf("S", "M", "L", "XL"),
-                pizzaPrice = pizza.price // Passer le prix de la pizza comme paramètre
+                pizzaPrice = pizza.price, // Passer le prix de la pizza comme paramètre
+                pizza = pizza
             )
         }
 
@@ -320,7 +325,8 @@ class PizzaFragment : Fragment() {
     fun SizeModal(
         onDismissRequest: () -> Unit,
         sizes: List<String>,
-        pizzaPrice: String // Ajouter le prix de la pizza comme paramètre
+        pizzaPrice: String,// Ajouter le prix de la pizza comme paramètre
+        pizza: Pizza
     ) {
         var selectedSize by remember { mutableStateOf("M") } // Sélectionner la taille "M" par défaut
         var totalPrice by remember { mutableFloatStateOf(pizzaPrice.toFloat()) }
@@ -414,8 +420,10 @@ class PizzaFragment : Fragment() {
                     }
                     Button(
                         onClick = {
-                            // Gérer la sélection de la taille ici
-                            onDismissRequest.invoke()
+                            panierViewModel.addPizzaToPanier(pizza, selectedSize)
+                            Toast.makeText(context, "Pizza ajoutée", Toast.LENGTH_SHORT).show()
+                            // Fermer la modale
+                            onDismissRequest()
                         },
                         modifier = Modifier
                             .fillMaxWidth()

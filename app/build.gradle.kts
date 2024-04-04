@@ -66,6 +66,7 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.tv:tv-material:1.0.0-alpha10")
+    implementation("androidx.privacysandbox.tools:tools-core:1.0.0-alpha08")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -90,6 +91,8 @@ dependencies {
     implementation("androidx.compose.ui:ui:$2.0.0-rc01")
     implementation("androidx.compose.material:material:$2.0.0-rc01")
     implementation ("androidx.compose.animation:animation:1.0.0")
+
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
 
 
 }
