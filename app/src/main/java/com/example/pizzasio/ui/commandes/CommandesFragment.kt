@@ -114,7 +114,7 @@ class OrderFragment : Fragment() {
                 modifier = Modifier.fillMaxSize(),
                 color = Color.Black.copy(alpha = 0.5f) // Opacité réduite pour mieux voir l'image de fond
             ) {
-                OrderList(orderState.value, showDialog) { newShowDialog ->
+                OrderList(orderState, showDialog) { newShowDialog ->
                     showDialog = newShowDialog
                 }
             }
