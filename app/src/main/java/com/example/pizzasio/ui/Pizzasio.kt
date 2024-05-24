@@ -8,7 +8,7 @@ class Pizzasio() : Application() {
     companion object {
         var test: String = "default"
 
-        //var user : User = User()
+        var user : User = User("","","","","")
         var panier: Panier = Panier()
     }
 }

@@ -1,16 +1,13 @@
 package com.example.pizzasio.ui.panier
 
-import PanierDatasource
-import SendPanierCallback
+import PanierViewModel
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -22,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -31,9 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import com.example.pizzasio.R
-import com.example.pizzasio.ui.Pizzasio
 import com.example.pizzasio.ui.theme.PizzaTheme
-import com.google.gson.Gson
 
 
 val panierViewModel = PanierViewModel()
@@ -48,7 +44,7 @@ class PanierFragment : Fragment() {
             setContent {
                 PizzaTheme {
                     Surface(modifier = Modifier.fillMaxSize()) {
-                        PanierContent()
+                        PanierContent(context = LocalContext.current)
 
                     }
                 }
@@ -58,7 +54,7 @@ class PanierFragment : Fragment() {
 }
 
 @Composable
-fun PanierContent() {
+fun PanierContent(context: Context) {
     val panierValue = panierViewModel.panierItemsState.value
     val isPanierEmpty = panierValue.isEmpty()
     LazyColumn(
@@ -138,7 +134,7 @@ fun PanierContent() {
         Button(
             onClick = {
                 if (!isPanierEmpty) {
-
+                    panierViewModel.postCommandToAPI(context)
                 }
             },
             colors = ButtonDefaults.buttonColors(

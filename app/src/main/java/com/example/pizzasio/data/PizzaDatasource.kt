@@ -1,11 +1,14 @@
 package com.example.pizzasio.data
 
 import android.content.Context
+import android.util.Log
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import com.example.pizzasio.data.model.Ingredient
 import com.example.pizzasio.data.model.Pizza
+import com.example.pizzasio.data.model.PizzaCommande
 import org.json.JSONException
 
 class PizzaDatasource(private val context: Context) {
@@ -18,7 +21,7 @@ class PizzaDatasource(private val context: Context) {
     fun loadPizza(callback: PizzaCallback) {
         val allPizza = mutableListOf<Pizza>()
 
-        val apiUrl = "https://slam.cipecma.net/jsabbah/Api/AllPizza"
+        val apiUrl = "https://slam.cipecma.net/2224/kaudouin/Api/AllPizza"
         val jsonArrayRequest = JsonArrayRequest(
             Request.Method.GET, apiUrl, null,
             { response ->
@@ -29,13 +32,23 @@ class PizzaDatasource(private val context: Context) {
                         val price = pizzaJson.getString("price")
                         val image = pizzaJson.getString("img_url")
                         val id = pizzaJson.getString("id")
-                        val idPate = pizzaJson.getString("dough")
-                        val idBase = pizzaJson.getString("base")
+                        val pate = pizzaJson.getString("pate")
+                        val base = pizzaJson.getString("base")
+
+                        val ingredientJson = pizzaJson.getJSONArray("ingredients")
+                        val ingredientList = mutableListOf<Ingredient>()
+                        for (j in 0 until ingredientJson.length()) {
+                            val ingredientJson = ingredientJson.getJSONObject(j)
+                            val name = ingredientJson.getString("name")
+                            val ingredient = Ingredient(name_ing = name)
+                            ingredientList.add(ingredient)
+                        }
                         // Créer un objet Pizza avec les détails extraits
-                        val pizza = Pizza(name = name, price = price, image = image, id = id, idPate = idPate, idBase = idBase)
+                        val pizza = Pizza(name = name, price = price, image = image, id = id, pate = pate, base = base, ingredient = ingredientList)
                         // Ajouter l'objet Pizza à la liste
                         allPizza.add(pizza)
                     }
+                    Log.i("Couc", allPizza.toString())
                     // Appeler le callback avec les données chargées
                     callback.onDataLoaded(allPizza)
                 } catch (e: JSONException) {

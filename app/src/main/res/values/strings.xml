@@ -19,6 +19,7 @@
     <string name="invalid_username">"Mauvais identifiant"</string>
     <string name="invalid_password">"Le mot de passe doit faire plus de 5 caractères"</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="login_f">"Login f"</string>
     <string name="pizza1">Pizza 1</string>
     <string name="pizza2">Pizza 2</string>
     <string name="pizza3">Pizza 3</string>
