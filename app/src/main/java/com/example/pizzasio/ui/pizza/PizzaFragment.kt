@@ -1,5 +1,6 @@
 package com.example.pizzasio.ui.pizza
 
+import PanierViewModel
 import com.example.pizzasio.data.PizzaCallback
 import com.example.pizzasio.data.PizzaDatasource
 import android.content.Context
@@ -71,7 +72,6 @@ import com.example.pizzasio.ui.theme.PizzaTheme
 import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
 import com.example.pizzasio.R
-import com.example.pizzasio.ui.panier.PanierViewModel
 
 
 val panierViewModel = PanierViewModel()
@@ -259,7 +259,7 @@ class PizzaFragment : Fragment() {
                         )
                         // Titre "Pâte"
                         Text(
-                            text = "Pâte",
+                            text = pizza.pate,
                             style = TextStyle(
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 24.sp,
@@ -267,18 +267,10 @@ class PizzaFragment : Fragment() {
                             ),
                             modifier = Modifier.padding(bottom = 16.dp)
                         )
-                        Text(
-                            text = pizza.idPate, // Ajoutez votre texte pour la pâte ici
-                            style = TextStyle(
-                                fontSize = 18.sp,
-                                color = Color.Black
-                            ),
-                            modifier = Modifier.padding(bottom = 16.dp)
-                        )
                         Divider(color = colorResource(id = R.color.italianGreen)) // Ligne de séparation verte
                         // Titre "Base"
                         Text(
-                            text = "Base",
+                            text = pizza.base,
                             style = TextStyle(
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 24.sp,
@@ -286,16 +278,7 @@ class PizzaFragment : Fragment() {
                             ),
                             modifier = Modifier.padding(vertical = 16.dp)
                         )
-                        Text(
-                            text = pizza.idBase, // Ajoutez votre texte pour la base ici
-                            style = TextStyle(
-                                fontSize = 18.sp,
-                                color = Color.Black
-                            ),
-                            modifier = Modifier.padding(bottom = 16.dp)
-                        )
                         Divider(color = colorResource(id = R.color.italianGreen)) // Ligne de séparation rouge
-                        // Titre "Ingrédients"
                         Text(
                             text = "Ingrédients",
                             style = TextStyle(
@@ -305,7 +288,17 @@ class PizzaFragment : Fragment() {
                             ),
                             modifier = Modifier.padding(vertical = 16.dp)
                         )
-                        Divider(color = colorResource(id = R.color.italianGreen)) // Ligne de séparation jaune
+                        // Liste des ingrédients
+                        pizza.ingredient.forEach { ingredient ->
+                            Text(
+                                text = "- ${ingredient.name_ing}",
+                                style = TextStyle(
+                                    fontSize = 16.sp,
+                                    color = Color.Black
+                                ),
+                                modifier = Modifier.padding(bottom = 4.dp)
+                            )
+                        }
                     }
                 }
             }

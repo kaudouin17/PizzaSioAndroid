@@ -2,6 +2,7 @@ package com.example.pizzasio.ui.login
 
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +11,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.pizzasio.R
 import com.example.pizzasio.data.LoginRepository
+import com.example.pizzasio.ui.Pizzasio
 
 class LoginViewModel(application: Application, private val
 loginRepository: LoginRepository) : AndroidViewModel(application) {
@@ -24,7 +26,7 @@ loginRepository: LoginRepository) : AndroidViewModel(application) {
         // Créer une file de requêtes Volley
         val queue = Volley.newRequestQueue(getApplication())
         // Construire l'URL de votre API avec les paramètres requis (remplacez URL_API par l'URL réelle)
-        val apiUrl = "https://slam.cipecma.net/jsabbah/Api/Login?email=$username&password=$password"
+        val apiUrl = "https://slam.cipecma.net/2224/kaudouin/Api/Login?&email=$username&password=$password"
         // Créer une requête JSON avec Volley
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, apiUrl, null,
@@ -35,6 +37,7 @@ loginRepository: LoginRepository) : AndroidViewModel(application) {
                     // La connexion réussit, créer l'objet LoggedInUserView
                     val user = LoggedInUserView(displayName = "User $userId")
                     _loginResult.value = LoginResult(success = user)
+                    Pizzasio.user.idUser = userId
                 } else {
                     // La réponse JSON ne contient pas "id_user", considérer comme échec
                             _loginResult.value = LoginResult(error =
@@ -43,7 +46,7 @@ loginRepository: LoginRepository) : AndroidViewModel(application) {
             },
             {
                 // En cas d'erreur, considérer comme échec
-                _loginResult.value = LoginResult(error = R.string.login_failed)
+                _loginResult.value = LoginResult(error = R.string.login_f)
             }
         )
         // Ajouter la requête à la file de requêtes

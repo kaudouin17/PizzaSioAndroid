@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.example.pizzasio.ui.commandes.CommandesFragment"
+        android:name="com.example.pizzasio.ui.commande.CommandeFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
 
